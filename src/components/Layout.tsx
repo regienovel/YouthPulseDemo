@@ -137,9 +137,9 @@ function Sidebar({ collapsed, onToggleCollapse, onNavClick }: SidebarProps) {
             className={`rounded-full ${collapsed ? 'w-10 h-10' : 'w-16 h-16'} transition-all duration-300`}
           >
             <img
-              src="/ministry-logo.png"
+              src="/logo.webp"
               alt="Ministry of Youth Development & Empowerment"
-              className={`${collapsed ? 'w-10 h-10' : 'w-16 h-16'} transition-all duration-300 drop-shadow-lg rounded-full`}
+              className={`${collapsed ? 'w-10 h-10' : 'w-16 h-16'} transition-all duration-300 drop-shadow-lg`}
               style={{ filter: 'drop-shadow(0 0 8px rgba(245,158,11,0.2))' }}
             />
           </motion.div>
@@ -286,9 +286,9 @@ function TopBar({ onMenuClick, pageTitle }: TopBarProps) {
 
         {/* Ministry logo in topbar (mobile only, since sidebar is hidden) */}
         <img
-          src="/ministry-logo.png"
+          src="/logo.webp"
           alt=""
-          className="md:hidden w-8 h-8 flex-shrink-0 rounded-full"
+          className="md:hidden w-8 h-8 flex-shrink-0"
         />
 
         <h2 className="text-lg font-heading font-semibold text-text-primary truncate">
