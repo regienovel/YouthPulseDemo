@@ -303,8 +303,9 @@ export default function NationalOverview() {
           const d = params.data;
           const region = REGIONS.find((r) => r.code === d.code);
           const skillGap = region ? (region.skillGapScore * 100).toFixed(0) : 'N/A';
+          const youthCount = d.regionValue ? d.regionValue.toLocaleString() : 'N/A';
           return `<div style="font-weight:600;margin-bottom:4px">${d.name}</div>
-            <div>Youth Registered: <b>${d.value.toLocaleString()}</b></div>
+            <div>Youth Registered: <b>${youthCount}</b></div>
             <div>Skills Gap: <b>${skillGap}%</b></div>`;
         },
       },
@@ -352,13 +353,16 @@ export default function NationalOverview() {
       series: [
         {
           type: 'scatter',
-          data: REGIONAL_MAP_DATA.map((r) => ({
-            value: [r.x, r.y],
-            code: r.code,
-            name: r.name,
-            ...r,
-            symbolSize: Math.max(22, (r.value / maxVal) * 60),
-          })),
+          data: REGIONAL_MAP_DATA.map((r) => {
+            const size = Math.max(22, (r.value / maxVal) * 60);
+            return {
+              value: [r.x, r.y],
+              code: r.code,
+              name: r.name,
+              regionValue: r.value,
+              symbolSize: size,
+            };
+          }),
           symbolSize: (data: any) => data.symbolSize || 30,
           itemStyle: {
             color: (params: any) => {
