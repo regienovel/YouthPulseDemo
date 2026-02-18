@@ -15,7 +15,6 @@ import {
   Calendar,
   MapPin,
   ChevronDown,
-  Shield,
 } from 'lucide-react';
 import { REGIONS } from '../data/mock-data';
 
@@ -117,20 +116,49 @@ function Sidebar({ collapsed, onToggleCollapse, onNavClick }: SidebarProps) {
         }}
       />
 
-      {/* Header */}
-      <div className={`flex items-center gap-3 px-5 py-6 border-b border-border ${collapsed ? 'justify-center px-3' : ''}`}>
-        <span className="text-2xl flex-shrink-0" role="img" aria-label="Ghana flag">
-          {'\u{1F1EC}\u{1F1ED}'}
-        </span>
+      {/* Header with Ministry Logo */}
+      <div className={`flex flex-col items-center border-b border-border ${collapsed ? 'px-2 py-4' : 'px-4 py-5'}`}>
+        <motion.div
+          initial={{ scale: 0.6, opacity: 0, rotate: -10 }}
+          animate={{ scale: 1, opacity: 1, rotate: 0 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 18, delay: 0.1 }}
+          className="relative flex-shrink-0"
+        >
+          {/* Animated glow ring behind logo */}
+          <motion.div
+            animate={{
+              boxShadow: [
+                '0 0 15px rgba(245,158,11,0.15), 0 0 30px rgba(245,158,11,0.05)',
+                '0 0 25px rgba(245,158,11,0.25), 0 0 50px rgba(245,158,11,0.1)',
+                '0 0 15px rgba(245,158,11,0.15), 0 0 30px rgba(245,158,11,0.05)',
+              ],
+            }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            className={`rounded-full ${collapsed ? 'w-10 h-10' : 'w-16 h-16'} transition-all duration-300`}
+          >
+            <img
+              src="/ministry-logo.svg"
+              alt="Ministry of Youth and Sports"
+              className={`${collapsed ? 'w-10 h-10' : 'w-16 h-16'} transition-all duration-300 drop-shadow-lg`}
+              style={{ filter: 'drop-shadow(0 0 8px rgba(245,158,11,0.2))' }}
+            />
+          </motion.div>
+        </motion.div>
+
         {!collapsed && (
-          <div className="min-w-0">
-            <h1 className="text-lg font-heading font-bold text-text-primary leading-tight truncate">
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
+            className="mt-3 text-center min-w-0"
+          >
+            <h1 className="text-base font-heading font-bold text-text-primary leading-tight">
               YouthPulse
             </h1>
-            <p className="text-xs text-text-muted leading-tight truncate">
+            <p className="text-[10px] text-ghana-gold font-semibold tracking-wider uppercase mt-0.5">
               Ghana Intelligence
             </p>
-          </div>
+          </motion.div>
         )}
       </div>
 
@@ -202,26 +230,6 @@ function Sidebar({ collapsed, onToggleCollapse, onNavClick }: SidebarProps) {
 
       {/* Bottom section */}
       <div className="border-t border-border p-3 space-y-3">
-        {/* Powered by badge */}
-        {!collapsed && (
-          <div className="px-3 py-3 rounded-xl bg-surface-tertiary/40">
-            <div className="flex items-center gap-2 mb-1">
-              <Shield size={14} className="text-ghana-gold flex-shrink-0" />
-              <span className="text-[11px] font-medium text-text-secondary">
-                Powered by Open Source AI
-              </span>
-            </div>
-            <p className="text-[10px] text-text-muted pl-[22px]">
-              AGPL-3.0 Licensed
-            </p>
-          </div>
-        )}
-        {collapsed && (
-          <div className="flex justify-center py-2" title="Powered by Open Source AI — AGPL-3.0 Licensed">
-            <Shield size={16} className="text-ghana-gold" />
-          </div>
-        )}
-
         {/* Collapse toggle */}
         <button
           onClick={onToggleCollapse}
@@ -275,6 +283,13 @@ function TopBar({ onMenuClick, pageTitle }: TopBarProps) {
         >
           <Menu size={22} />
         </button>
+
+        {/* Ministry logo in topbar (mobile only, since sidebar is hidden) */}
+        <img
+          src="/ministry-logo.svg"
+          alt=""
+          className="md:hidden w-8 h-8 flex-shrink-0"
+        />
 
         <h2 className="text-lg font-heading font-semibold text-text-primary truncate">
           {pageTitle}
