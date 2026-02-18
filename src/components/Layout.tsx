@@ -137,7 +137,7 @@ function Sidebar({ collapsed, onToggleCollapse, onNavClick }: SidebarProps) {
             className={`rounded-full ${collapsed ? 'w-10 h-10' : 'w-16 h-16'} transition-all duration-300`}
           >
             <img
-              src="/logo.webp"
+              src="/ministry-logo.png"
               alt="Ministry of Youth Development & Empowerment"
               className={`${collapsed ? 'w-10 h-10' : 'w-16 h-16'} transition-all duration-300 drop-shadow-lg`}
               style={{ filter: 'drop-shadow(0 0 8px rgba(245,158,11,0.2))' }}
@@ -286,7 +286,7 @@ function TopBar({ onMenuClick, pageTitle }: TopBarProps) {
 
         {/* Ministry logo in topbar (mobile only, since sidebar is hidden) */}
         <img
-          src="/logo.webp"
+          src="/ministry-logo.png"
           alt=""
           className="md:hidden w-8 h-8 flex-shrink-0"
         />
