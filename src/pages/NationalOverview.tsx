@@ -5,13 +5,18 @@ import ReactECharts from 'echarts-for-react';
 import {
   Users,
   Briefcase,
-  Building2,
-  Trophy,
+  Rocket,
+  TrendingDown,
   AlertTriangle,
-  Star,
   ArrowRight,
   MessageSquare,
   MapPin,
+  Plane,
+  Zap,
+  GraduationCap,
+  Target,
+  Building,
+  Globe,
 } from 'lucide-react';
 
 import {
@@ -19,13 +24,50 @@ import {
   MONTHLY_TRENDS,
   REGIONS,
   REGIONAL_MAP_DATA,
-  FACILITIES,
-  TALENT_ALERTS,
-  SPORT_PARTICIPATION,
   SKILLS_DEMAND,
-  TALENT_PIPELINE,
 } from '../data/mock-data';
 import { KPICard } from '../components/KPICard';
+
+// ────────────────────────────────────────────────────────────
+// Inline data for the new module highlights
+// ────────────────────────────────────────────────────────────
+
+const EMPOWERMENT_HIGHLIGHTS = {
+  activeProgrammes: 12,
+  activeEnrollments: 48750,
+  entrepreneursFunded: 3215,
+  digitalSkillsTrained: 124500,
+  digitalTarget: 500000,
+  tvetCompletionRate: 68.4,
+};
+
+const NEET_HIGHLIGHTS = {
+  totalNEET: 1340000,
+  neetRate: 25.8,
+  neetReduction: -2.3,
+  youthReached: 312400,
+  migrationRisk: 72,
+  districtsCovered: 198,
+  totalDistricts: 261,
+};
+
+const PROGRAMME_STATUS = [
+  { name: 'YEA', enrolled: 14200, status: 'active', sector: 'Multi-sector' },
+  { name: 'NEIP', enrolled: 8420, status: 'active', sector: 'Entrepreneurship' },
+  { name: 'Adwumawura', enrolled: 6800, status: 'active', sector: 'Trades' },
+  { name: '1M Coders', enrolled: 4500, status: 'active', sector: 'Digital' },
+  { name: 'Nat. Apprenticeship', enrolled: 5200, status: 'active', sector: 'Trades' },
+  { name: 'Youth in Agric', enrolled: 3800, status: 'active', sector: 'Agriculture' },
+];
+
+const NEET_BY_REGION_SUMMARY = [
+  { region: 'North East', rate: 35.2 },
+  { region: 'Savannah', rate: 34.1 },
+  { region: 'Upper East', rate: 33.2 },
+  { region: 'Upper West', rate: 32.8 },
+  { region: 'Northern', rate: 31.5 },
+  { region: 'Oti', rate: 29.4 },
+];
 
 // ────────────────────────────────────────────────────────────
 // Animation helpers
@@ -54,87 +96,41 @@ REGIONS.forEach((r) => {
 });
 
 // ────────────────────────────────────────────────────────────
-// Status badge helpers
+// Helpers
 // ────────────────────────────────────────────────────────────
-
-function getStatusBadgeClass(status: string): string {
-  switch (status) {
-    case 'critical':
-      return 'bg-red-500/15 text-red-400 border border-red-500/20';
-    case 'needs_repair':
-      return 'bg-amber-500/15 text-amber-400 border border-amber-500/20';
-    case 'fair':
-      return 'bg-yellow-500/15 text-yellow-400 border border-yellow-500/20';
-    case 'good':
-      return 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20';
-    default:
-      return 'bg-slate-500/15 text-slate-400 border border-slate-500/20';
-  }
-}
-
-function getStatusLabel(status: string): string {
-  switch (status) {
-    case 'critical':
-      return 'Critical';
-    case 'needs_repair':
-      return 'Needs Repair';
-    case 'fair':
-      return 'Fair';
-    case 'good':
-      return 'Good';
-    default:
-      return status;
-  }
-}
-
-function getAlertBadgeClass(level: string): string {
-  switch (level) {
-    case 'elite':
-      return 'bg-amber-500/15 text-amber-400 border border-amber-500/20';
-    case 'exceptional':
-      return 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20';
-    case 'promising':
-      return 'bg-blue-500/15 text-blue-400 border border-blue-500/20';
-    default:
-      return 'bg-slate-500/15 text-slate-400 border border-slate-500/20';
-  }
-}
-
-function formatCurrency(value: number): string {
-  if (value >= 1_000_000) {
-    return `GH\u20B5${(value / 1_000_000).toFixed(1)}M`;
-  }
-  if (value >= 1_000) {
-    return `GH\u20B5${(value / 1_000).toFixed(0)}K`;
-  }
-  return `GH\u20B5${value.toLocaleString()}`;
-}
 
 function formatNumber(value: number): string {
   return value.toLocaleString();
 }
 
-// ────────────────────────────────────────────────────────────
-// Sport participation color palette
-// ────────────────────────────────────────────────────────────
+function getSectorBadgeClass(sector: string): string {
+  switch (sector) {
+    case 'Multi-sector':
+      return 'bg-amber-500/15 text-amber-400 border border-amber-500/20';
+    case 'Entrepreneurship':
+      return 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20';
+    case 'Trades':
+      return 'bg-blue-500/15 text-blue-400 border border-blue-500/20';
+    case 'Digital':
+      return 'bg-purple-500/15 text-purple-400 border border-purple-500/20';
+    case 'Agriculture':
+      return 'bg-lime-500/15 text-lime-400 border border-lime-500/20';
+    default:
+      return 'bg-slate-500/15 text-slate-400 border border-slate-500/20';
+  }
+}
 
-const SPORT_COLORS = [
-  '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6',
-  '#EC4899', '#F97316', '#14B8A6', '#EF4444',
-  '#6366F1', '#84CC16', '#22D3EE', '#A855F7',
-];
+function getNEETSeverityColor(rate: number): string {
+  if (rate > 33) return '#EF4444';
+  if (rate >= 30) return '#F97316';
+  return '#F59E0B';
+}
 
-// ────────────────────────────────────────────────────────────
-// Pipeline tier config
-// ────────────────────────────────────────────────────────────
-
-const PIPELINE_TIERS = [
-  { key: 'community' as const, label: 'Community', color: '#334155' },
-  { key: 'district' as const, label: 'District', color: '#475569' },
-  { key: 'regional' as const, label: 'Regional', color: '#D97706' },
-  { key: 'national' as const, label: 'National', color: '#F59E0B' },
-  { key: 'international' as const, label: 'International', color: '#FCD34D' },
-];
+function getNEETSeverityClass(rate: number): string {
+  if (rate > 33) return 'text-red-400';
+  if (rate >= 30) return 'text-orange-400';
+  return 'text-amber-400';
+}
 
 // ============================================================
 // NationalOverview page
@@ -142,21 +138,6 @@ const PIPELINE_TIERS = [
 
 export default function NationalOverview() {
   const navigate = useNavigate();
-
-  // ── Facility alerts: filter critical + needs_repair ──
-  const facilityAlerts = useMemo(() => {
-    return FACILITIES
-      .filter((f) => f.status === 'critical' || f.status === 'needs_repair')
-      .sort((a, b) => {
-        const order = { critical: 0, needs_repair: 1, fair: 2, good: 3 };
-        return order[a.status] - order[b.status];
-      })
-      .slice(0, 6);
-  }, []);
-
-  const criticalCount = FACILITIES.filter(
-    (f) => f.status === 'critical' || f.status === 'needs_repair'
-  ).length;
 
   // ── Employment trends chart options ──
   const trendsChartOption = useMemo(() => {
@@ -396,94 +377,94 @@ export default function NationalOverview() {
     };
   }, []);
 
-  // ── Sport participation donut chart ──
-  const sportDonutOption = useMemo(() => {
-    const top8 = SPORT_PARTICIPATION.slice(0, 8);
-    const totalParticipants = top8.reduce((sum, s) => sum + s.total, 0);
+  // ── Skills gap bar chart ──
+  const skillsGapChartOption = useMemo(() => {
+    const sorted = [...SKILLS_DEMAND]
+      .sort((a, b) => b.gapRatio - a.gapRatio)
+      .slice(0, 8);
+
+    const trendColorMap: Record<string, string> = {
+      rising: '#10B981',
+      stable: '#F59E0B',
+      declining: '#EF4444',
+    };
 
     return {
       backgroundColor: 'transparent',
       tooltip: {
-        trigger: 'item',
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' },
         backgroundColor: '#1E293B',
         borderColor: '#334155',
         borderWidth: 1,
         textStyle: { color: '#E2E8F0', fontSize: 13 },
         formatter: (params: any) => {
-          const sport = top8.find((s) => s.sport === params.name);
-          if (!sport) return params.name;
-          return `<div style="font-weight:600;margin-bottom:4px">${sport.sport}</div>
-            <div>Total: <b>${sport.total.toLocaleString()}</b></div>
-            <div>Male: ${sport.male.toLocaleString()} | Female: ${sport.female.toLocaleString()}</div>
-            <div>Growth: <b>+${sport.growthPercent}%</b></div>`;
+          const d = params[0];
+          const skill = sorted.find((s) => s.name === d.name);
+          if (!skill) return d.name;
+          return `<div style="font-weight:600;margin-bottom:4px">${skill.name}</div>
+            <div>Sector: ${skill.sector}</div>
+            <div>Demand: <b>${skill.demandCount.toLocaleString()}</b></div>
+            <div>Supply: <b>${skill.supplyCount.toLocaleString()}</b></div>
+            <div>Gap Ratio: <b>${skill.gapRatio.toFixed(2)}x</b></div>
+            <div>Trend: <b style="color:${trendColorMap[skill.trend]}">${skill.trend}</b></div>
+            <div>Avg Salary: <b>GH\u20B5${skill.avgSalaryGHS.toLocaleString()}</b></div>`;
         },
       },
-      legend: {
-        orient: 'horizontal',
-        bottom: 0,
-        left: 'center',
-        textStyle: { color: '#94A3B8', fontSize: 11 },
-        itemWidth: 10,
-        itemHeight: 10,
-        itemGap: 12,
+      grid: {
+        top: 12,
+        left: 16,
+        right: 60,
+        bottom: 8,
+        containLabel: true,
+      },
+      xAxis: {
+        type: 'value',
+        splitLine: { lineStyle: { color: '#1E293B', opacity: 0.6 } },
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: {
+          color: '#64748B',
+          fontSize: 11,
+          formatter: (val: number) => `${val.toFixed(1)}x`,
+        },
+      },
+      yAxis: {
+        type: 'category',
+        data: sorted.map((s) => s.name).reverse(),
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: {
+          color: '#94A3B8',
+          fontSize: 11,
+          width: 160,
+          overflow: 'truncate',
+        },
       },
       series: [
         {
-          type: 'pie',
-          radius: ['48%', '72%'],
-          center: ['50%', '42%'],
-          avoidLabelOverlap: true,
-          label: { show: false },
-          emphasis: {
-            label: { show: false },
-            scaleSize: 6,
-          },
-          labelLine: { show: false },
-          data: top8.map((s, i) => ({
-            name: s.sport,
-            value: s.total,
-            itemStyle: { color: SPORT_COLORS[i % SPORT_COLORS.length] },
-          })),
-        },
-        {
-          type: 'pie',
-          radius: ['0%', '0%'],
-          center: ['50%', '42%'],
+          type: 'bar',
+          data: sorted
+            .map((s) => ({
+              value: s.gapRatio,
+              itemStyle: { color: trendColorMap[s.trend] },
+            }))
+            .reverse(),
+          barWidth: 20,
+          borderRadius: [0, 6, 6, 0],
           label: {
             show: true,
-            position: 'center',
-            formatter: [
-              `{total|${(totalParticipants / 1000).toFixed(0)}K}`,
-              '{sub|participants}',
-            ].join('\n'),
-            rich: {
-              total: {
-                fontSize: 22,
-                fontWeight: 700,
-                color: '#E2E8F0',
-                lineHeight: 28,
-              },
-              sub: {
-                fontSize: 11,
-                color: '#64748B',
-                lineHeight: 18,
-              },
-            },
+            position: 'right',
+            formatter: (params: any) => `${params.value.toFixed(2)}x`,
+            color: '#94A3B8',
+            fontSize: 11,
           },
-          data: [{ value: 0, name: '' }],
-          silent: true,
         },
       ],
       animationDuration: 1200,
       animationEasing: 'cubicOut',
     };
   }, []);
-
-  // ── Pipeline max for bar widths ──
-  const pipelineMax = TALENT_PIPELINE.community;
-
-  // ── Talent alerts limited to 6 ──
-  const displayedAlerts = TALENT_ALERTS.slice(0, 6);
 
   return (
     <div className="space-y-8">
@@ -542,34 +523,101 @@ export default function NationalOverview() {
           delay={0.1}
         />
         <KPICard
-          title="Facilities Monitored"
-          value={OVERVIEW_KPIS.totalFacilities}
-          icon={<Building2 size={22} />}
+          title="Programmes Active"
+          value={EMPOWERMENT_HIGHLIGHTS.activeEnrollments}
+          icon={<Rocket size={22} />}
           color="blue"
           delay={0.2}
         />
-        <KPICard
-          title="Athletes Tracked"
-          value={OVERVIEW_KPIS.totalAthletes}
-          icon={<Trophy size={22} />}
-          color="purple"
-          trend={OVERVIEW_KPIS.athleteGrowth}
-          trendLabel="vs last quarter"
-          delay={0.3}
-        />
+
+        {/* Custom NEET Reduction card — declining is positive */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.55,
+            delay: 0.3,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          whileHover={{ scale: 1.025 }}
+          className="relative overflow-hidden rounded-2xl bg-[#111827]/80 backdrop-blur-xl border border-white/[0.06] hover:border-purple-500/40 shadow-lg shadow-purple-500/10 transition-all duration-300 group"
+        >
+          {/* Gradient stripe at top */}
+          <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-purple-500 via-purple-400 to-purple-600 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+
+          {/* Subtle glow blob */}
+          <div
+            className="pointer-events-none absolute -right-6 -top-6 h-28 w-28 rounded-full opacity-[0.07] blur-2xl transition-opacity duration-500 group-hover:opacity-[0.13]"
+            style={{ backgroundColor: '#8B5CF6' }}
+          />
+
+          <div className="relative z-10 flex items-start gap-4 p-5">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 ring-1 ring-white/[0.06]">
+              <span className="text-purple-400">
+                <TrendingDown size={22} />
+              </span>
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-medium text-slate-400">
+                NEET Rate
+              </p>
+              <p className="mt-1 text-3xl font-bold tracking-tight text-slate-100">
+                {NEET_HIGHLIGHTS.neetRate}
+                <span className="ml-0.5 text-lg font-semibold text-slate-400">%</span>
+              </p>
+              <div className="mt-2 flex items-center gap-1.5">
+                <span className="inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-semibold text-emerald-400 bg-white/[0.04]">
+                  <TrendingDown className="h-3 w-3" />
+                  {NEET_HIGHLIGHTS.neetReduction}%
+                </span>
+                <span className="text-xs text-slate-500">vs last quarter</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
 
-      {/* ── Critical facilities sub-text under KPI row ── */}
+      {/* ── Sub-text under KPI row: programme count ── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.4 }}
         className="-mt-4 pl-1"
       >
-        <span className="inline-flex items-center gap-1.5 text-xs text-red-400">
-          <AlertTriangle size={13} />
-          {OVERVIEW_KPIS.facilitiesCritical} critical facilities require urgent attention
+        <span className="inline-flex items-center gap-1.5 text-xs text-blue-400">
+          <Rocket size={13} />
+          {EMPOWERMENT_HIGHLIGHTS.activeProgrammes} active programmes across all regions
         </span>
+      </motion.div>
+
+      {/* ── Critical Alerts Banner ── */}
+      <motion.div
+        variants={fadeUp}
+        initial="initial"
+        animate="animate"
+        transition={{ duration: 0.5, delay: 0.35 }}
+        className="space-y-3"
+      >
+        {/* NEET Alert */}
+        <div className="flex items-start gap-3 p-4 rounded-xl bg-red-500/[0.08] border border-red-500/20">
+          <AlertTriangle size={18} className="text-red-400 mt-0.5 shrink-0" />
+          <div className="flex-1">
+            <p className="text-sm text-red-300 font-medium">
+              {formatNumber(NEET_HIGHLIGHTS.totalNEET)} youth are NEET (Not in Education, Employment, or Training) &mdash; {NEET_HIGHLIGHTS.neetRate}% of 15-24 age group
+            </p>
+          </div>
+        </div>
+
+        {/* Migration Risk Alert */}
+        <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/[0.08] border border-amber-500/20">
+          <Plane size={18} className="text-amber-400 mt-0.5 shrink-0" />
+          <div className="flex-1">
+            <p className="text-sm text-amber-300 font-medium">
+              {NEET_HIGHLIGHTS.migrationRisk}% of youth aged 18-35 considering emigration &mdash; intervention critical
+            </p>
+          </div>
+        </div>
       </motion.div>
 
       {/* ── Main Content Grid ── */}
@@ -621,7 +669,7 @@ export default function NationalOverview() {
 
         {/* RIGHT COLUMN (2/5 on lg) */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Facility Condition Alerts */}
+          {/* NEET Crisis Regions */}
           <motion.div
             variants={fadeUp}
             initial="initial"
@@ -632,87 +680,43 @@ export default function NationalOverview() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <h3 className="text-base font-heading font-semibold text-text-primary">
-                  Facility Condition Alerts
+                  Highest NEET Regions
                 </h3>
                 <span className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full bg-red-500/15 text-red-400 text-[11px] font-bold border border-red-500/20">
-                  {criticalCount}
+                  {NEET_BY_REGION_SUMMARY.length}
                 </span>
               </div>
             </div>
 
-            <div className="space-y-3 max-h-[420px] overflow-y-auto pr-1">
-              {facilityAlerts.map((facility) => (
-                <div
-                  key={facility.id}
-                  className="flex items-start gap-3 p-3 rounded-xl bg-surface-tertiary/40 hover:bg-surface-tertiary/60 transition-colors duration-200 cursor-pointer group"
-                >
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-text-primary truncate group-hover:text-ghana-gold transition-colors">
-                      {facility.name}
-                    </p>
-                    <p className="text-xs text-text-muted mt-0.5">
-                      {facility.region} &bull; {facility.district}
-                    </p>
-                    <p className="text-xs text-text-muted mt-1">
-                      Est. repair: {formatCurrency(facility.estimatedRepairCostGHS)}
-                    </p>
-                  </div>
-                  <span
-                    className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium whitespace-nowrap ${getStatusBadgeClass(
-                      facility.status
-                    )}`}
-                  >
-                    {getStatusLabel(facility.status)}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <button className="mt-4 flex items-center gap-1.5 text-xs font-medium text-ghana-gold hover:text-ghana-gold-light transition-colors">
-              View all facilities
-              <ArrowRight size={14} />
-            </button>
-          </motion.div>
-
-          {/* Talent Development Pipeline */}
-          <motion.div
-            variants={fadeUp}
-            initial="initial"
-            animate="animate"
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="glass-card p-6"
-          >
-            <h3 className="text-base font-heading font-semibold text-text-primary mb-5">
-              Talent Development Pipeline
-            </h3>
-
             <div className="space-y-3">
-              {PIPELINE_TIERS.map((tier, idx) => {
-                const count = TALENT_PIPELINE[tier.key];
-                const widthPercent = (count / pipelineMax) * 100;
+              {NEET_BY_REGION_SUMMARY.map((item, idx) => {
+                const barWidth = (item.rate / 40) * 100; // 40% as max scale
+                const severityColor = getNEETSeverityColor(item.rate);
+                const severityTextClass = getNEETSeverityClass(item.rate);
 
                 return (
                   <motion.div
-                    key={tier.key}
-                    initial={{ opacity: 0, x: -20 }}
+                    key={item.region}
+                    initial={{ opacity: 0, x: -16 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6 + idx * 0.08, duration: 0.4 }}
+                    transition={{ delay: 0.5 + idx * 0.06, duration: 0.4 }}
+                    className="p-3 rounded-xl bg-surface-tertiary/40 hover:bg-surface-tertiary/60 transition-colors duration-200"
                   >
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-medium text-text-secondary">
-                        {tier.label}
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-sm font-medium text-text-primary">
+                        {item.region}
                       </span>
-                      <span className="text-xs font-bold text-text-primary">
-                        {formatNumber(count)}
+                      <span className={`text-sm font-bold ${severityTextClass}`}>
+                        {item.rate}%
                       </span>
                     </div>
-                    <div className="h-6 w-full rounded-lg bg-surface-tertiary/60 overflow-hidden">
+                    <div className="h-2 w-full rounded-full bg-surface-tertiary/80 overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
-                        animate={{ width: `${widthPercent}%` }}
-                        transition={{ delay: 0.7 + idx * 0.08, duration: 1, ease: 'easeOut' }}
-                        className="h-full rounded-lg"
-                        style={{ backgroundColor: tier.color }}
+                        animate={{ width: `${Math.min(barWidth, 100)}%` }}
+                        transition={{ delay: 0.6 + idx * 0.06, duration: 0.8, ease: 'easeOut' }}
+                        className="h-full rounded-full"
+                        style={{ backgroundColor: severityColor }}
                       />
                     </div>
                   </motion.div>
@@ -720,19 +724,67 @@ export default function NationalOverview() {
               })}
             </div>
 
-            <div className="mt-4 flex items-center gap-1.5 text-xs text-text-muted">
-              <Trophy size={12} className="text-ghana-gold" />
-              Total pipeline: {formatNumber(
-                TALENT_PIPELINE.community +
-                TALENT_PIPELINE.district +
-                TALENT_PIPELINE.regional +
-                TALENT_PIPELINE.national +
-                TALENT_PIPELINE.international
-              )} athletes
-            </div>
+            <button
+              onClick={() => navigate('/neet')}
+              className="mt-4 flex items-center gap-1.5 text-xs font-medium text-ghana-gold hover:text-ghana-gold-light transition-colors"
+            >
+              View full analysis
+              <ArrowRight size={14} />
+            </button>
           </motion.div>
 
-          {/* Sport Participation Donut */}
+          {/* Youth Programme Tracker */}
+          <motion.div
+            variants={fadeUp}
+            initial="initial"
+            animate="animate"
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="glass-card p-6"
+          >
+            <h3 className="text-base font-heading font-semibold text-text-primary mb-4">
+              Active Programme Enrollment
+            </h3>
+
+            <div className="space-y-2.5">
+              {PROGRAMME_STATUS.map((prog, idx) => (
+                <motion.div
+                  key={prog.name}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.55 + idx * 0.06, duration: 0.4 }}
+                  className="flex items-center justify-between p-3 rounded-xl bg-surface-tertiary/40 hover:bg-surface-tertiary/60 transition-colors duration-200"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-text-primary truncate">
+                        {prog.name}
+                      </p>
+                      <span
+                        className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium mt-1 ${getSectorBadgeClass(
+                          prog.sector
+                        )}`}
+                      >
+                        {prog.sector}
+                      </span>
+                    </div>
+                  </div>
+                  <span className="text-sm font-bold text-text-primary whitespace-nowrap ml-3">
+                    {formatNumber(prog.enrolled)}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+
+            <button
+              onClick={() => navigate('/empowerment')}
+              className="mt-4 flex items-center gap-1.5 text-xs font-medium text-ghana-gold hover:text-ghana-gold-light transition-colors"
+            >
+              View all programmes
+              <ArrowRight size={14} />
+            </button>
+          </motion.div>
+
+          {/* Empowerment Highlights Mini Dashboard */}
           <motion.div
             variants={fadeUp}
             initial="initial"
@@ -740,82 +792,143 @@ export default function NationalOverview() {
             transition={{ duration: 0.5, delay: 0.45 }}
             className="glass-card p-6"
           >
-            <h3 className="text-base font-heading font-semibold text-text-primary mb-2">
-              Sport Participation by Discipline
+            <h3 className="text-base font-heading font-semibold text-text-primary mb-4">
+              Empowerment Highlights
             </h3>
-            <ReactECharts
-              option={sportDonutOption}
-              style={{ height: '320px', width: '100%' }}
-              opts={{ renderer: 'canvas' }}
-            />
+
+            <div className="grid grid-cols-2 gap-3">
+              {/* Entrepreneurs Funded */}
+              <div className="relative overflow-hidden rounded-xl bg-[#111827]/60 px-4 py-3 ring-1 ring-white/[0.06] transition-colors duration-200 hover:bg-[#111827]/80">
+                <div
+                  className="absolute inset-y-0 left-0 w-[3px] rounded-full"
+                  style={{ backgroundColor: '#10B981', opacity: 0.6 }}
+                />
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Zap size={12} className="text-emerald-400" />
+                  <p className="text-xs font-medium text-slate-500">Entrepreneurs Funded</p>
+                </div>
+                <p className="text-lg font-bold text-slate-200">
+                  {formatNumber(EMPOWERMENT_HIGHLIGHTS.entrepreneursFunded)}
+                </p>
+              </div>
+
+              {/* Digital Skills */}
+              <div className="relative overflow-hidden rounded-xl bg-[#111827]/60 px-4 py-3 ring-1 ring-white/[0.06] transition-colors duration-200 hover:bg-[#111827]/80">
+                <div
+                  className="absolute inset-y-0 left-0 w-[3px] rounded-full"
+                  style={{ backgroundColor: '#8B5CF6', opacity: 0.6 }}
+                />
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Target size={12} className="text-purple-400" />
+                  <p className="text-xs font-medium text-slate-500">Digital Skills</p>
+                </div>
+                <p className="text-lg font-bold text-slate-200">
+                  {(EMPOWERMENT_HIGHLIGHTS.digitalSkillsTrained / 1000).toFixed(1)}K
+                  <span className="text-xs font-normal text-slate-500 ml-1">
+                    / {(EMPOWERMENT_HIGHLIGHTS.digitalTarget / 1000).toFixed(0)}K
+                  </span>
+                </p>
+              </div>
+
+              {/* TVET Completion */}
+              <div className="relative overflow-hidden rounded-xl bg-[#111827]/60 px-4 py-3 ring-1 ring-white/[0.06] transition-colors duration-200 hover:bg-[#111827]/80">
+                <div
+                  className="absolute inset-y-0 left-0 w-[3px] rounded-full"
+                  style={{ backgroundColor: '#F59E0B', opacity: 0.6 }}
+                />
+                <div className="flex items-center gap-1.5 mb-1">
+                  <GraduationCap size={12} className="text-amber-400" />
+                  <p className="text-xs font-medium text-slate-500">TVET Completion</p>
+                </div>
+                <p className="text-lg font-bold text-slate-200">
+                  {EMPOWERMENT_HIGHLIGHTS.tvetCompletionRate}%
+                </p>
+              </div>
+
+              {/* Youth Reached */}
+              <div className="relative overflow-hidden rounded-xl bg-[#111827]/60 px-4 py-3 ring-1 ring-white/[0.06] transition-colors duration-200 hover:bg-[#111827]/80">
+                <div
+                  className="absolute inset-y-0 left-0 w-[3px] rounded-full"
+                  style={{ backgroundColor: '#3B82F6', opacity: 0.6 }}
+                />
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Users size={12} className="text-blue-400" />
+                  <p className="text-xs font-medium text-slate-500">Youth Reached</p>
+                </div>
+                <p className="text-lg font-bold text-slate-200">
+                  {formatNumber(NEET_HIGHLIGHTS.youthReached)}
+                </p>
+              </div>
+
+              {/* Districts Covered */}
+              <div className="relative overflow-hidden rounded-xl bg-[#111827]/60 px-4 py-3 ring-1 ring-white/[0.06] transition-colors duration-200 hover:bg-[#111827]/80">
+                <div
+                  className="absolute inset-y-0 left-0 w-[3px] rounded-full"
+                  style={{ backgroundColor: '#14B8A6', opacity: 0.6 }}
+                />
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Building size={12} className="text-teal-400" />
+                  <p className="text-xs font-medium text-slate-500">Districts</p>
+                </div>
+                <p className="text-lg font-bold text-slate-200">
+                  {NEET_HIGHLIGHTS.districtsCovered}
+                  <span className="text-xs font-normal text-slate-500 ml-1">
+                    / {NEET_HIGHLIGHTS.totalDistricts}
+                  </span>
+                </p>
+              </div>
+
+              {/* Migration Risk */}
+              <div className="relative overflow-hidden rounded-xl bg-[#111827]/60 px-4 py-3 ring-1 ring-white/[0.06] transition-colors duration-200 hover:bg-[#111827]/80">
+                <div
+                  className="absolute inset-y-0 left-0 w-[3px] rounded-full"
+                  style={{ backgroundColor: '#EF4444', opacity: 0.6 }}
+                />
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Globe size={12} className="text-red-400" />
+                  <p className="text-xs font-medium text-slate-500">Migration Risk</p>
+                </div>
+                <p className="text-lg font-bold text-slate-200">
+                  {NEET_HIGHLIGHTS.migrationRisk}%
+                </p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
 
-      {/* ── Recent Talent Alerts Feed (full width) ── */}
+      {/* ── Skills Gap Snapshot (full width) ── */}
       <motion.div
         variants={fadeUp}
         initial="initial"
         animate="animate"
         transition={{ duration: 0.5, delay: 0.5 }}
+        className="glass-card p-6"
       >
-        <div className="flex items-center gap-2 mb-4">
-          <Star size={18} className="text-ghana-gold" />
+        <div className="flex items-center justify-between mb-4">
           <h3 className="text-base font-heading font-semibold text-text-primary">
-            Latest Talent Alerts
+            Top Skills Gaps &mdash; Where Demand Exceeds Supply
           </h3>
+          <div className="flex items-center gap-4 text-[11px] text-text-muted">
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500" />
+              Rising
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-amber-500" />
+              Stable
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-red-500" />
+              Declining
+            </span>
+          </div>
         </div>
-
-        <div className="flex gap-4 overflow-x-auto pb-3 -mx-2 px-2 scrollbar-thin">
-          {displayedAlerts.map((alert, idx) => (
-            <motion.div
-              key={alert.id}
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6 + idx * 0.08, duration: 0.45 }}
-              className="flex-shrink-0 w-[300px] glass-card p-5 hover:border-ghana-gold/30 transition-all duration-300 cursor-pointer group"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span
-                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wide ${getAlertBadgeClass(
-                    alert.alertLevel
-                  )} ${alert.alertLevel === 'elite' ? 'animate-pulse-slow' : ''}`}
-                >
-                  {alert.alertLevel}
-                </span>
-                <span className="text-[11px] text-text-muted">{alert.date}</span>
-              </div>
-
-              <p className="text-sm font-semibold text-text-primary group-hover:text-ghana-gold transition-colors">
-                {alert.athleteName}
-              </p>
-
-              <div className="mt-1.5 flex items-center gap-2 text-xs text-text-secondary">
-                <span>{alert.sport}</span>
-                <span className="text-text-muted">&bull;</span>
-                <span>{alert.event}</span>
-              </div>
-
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-lg font-bold text-text-primary">
-                  {alert.performance}
-                </span>
-                <span className="text-xs font-semibold text-ghana-gold">
-                  Top {(100 - alert.percentile).toFixed(1)}%
-                </span>
-              </div>
-
-              <div className="mt-2 flex items-center gap-1.5 text-[11px] text-text-muted">
-                <MapPin size={11} />
-                {alert.region}
-              </div>
-
-              <p className="mt-3 text-xs text-text-muted leading-relaxed line-clamp-2">
-                {alert.recommendation}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+        <ReactECharts
+          option={skillsGapChartOption}
+          style={{ height: '360px', width: '100%' }}
+          opts={{ renderer: 'canvas' }}
+        />
       </motion.div>
 
       {/* ── Ask AI Prompt Bar ── */}
@@ -832,7 +945,7 @@ export default function NationalOverview() {
             <MessageSquare size={20} className="text-amber-400" />
           </div>
           <span className="flex-1 text-left text-sm text-text-muted group-hover:text-text-secondary transition-colors">
-            Ask me anything about Ghana's youth &amp; sports data...
+            Ask me anything about Ghana's youth development data...
           </span>
           <ArrowRight size={18} className="text-text-muted group-hover:text-ghana-gold transition-colors" />
         </button>

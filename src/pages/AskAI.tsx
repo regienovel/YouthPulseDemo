@@ -50,15 +50,15 @@ const SUGGESTIONS: SuggestionCard[] = [
   },
   {
     id: 'q2',
-    question: 'Which facilities need urgent maintenance?',
+    question: 'What is the current NEET rate and which regions are most affected?',
     icon: <Building2 size={20} />,
-    category: 'Infrastructure',
+    category: 'NEET Analysis',
   },
   {
     id: 'q3',
-    question: 'Show athletes with international potential outside football',
+    question: 'How effective are our youth empowerment programmes?',
     icon: <Star size={20} />,
-    category: 'Talent',
+    category: 'Programmes',
   },
   {
     id: 'q4',
@@ -68,15 +68,15 @@ const SUGGESTIONS: SuggestionCard[] = [
   },
   {
     id: 'q5',
-    question: 'Compare sports participation across all 16 regions',
+    question: 'How many youth are at risk of emigrating and from which regions?',
     icon: <BarChart3 size={20} />,
-    category: 'Participation',
+    category: 'Migration Risk',
   },
   {
     id: 'q6',
-    question: 'How much Sports Fund has been disbursed?',
+    question: 'What is the digital skills gap across regions?',
     icon: <Wallet size={20} />,
-    category: 'Finance',
+    category: 'Digital Skills',
   },
   {
     id: 'q7',
@@ -112,47 +112,55 @@ The region's match success rate of **31.7%** is slightly below the national aver
 
 _Data source: YouthPulse Employment Intelligence, Q1 2026_`,
 
-  'Which facilities need urgent maintenance?':
-    `**18 facilities** are currently flagged as critical or high-priority for maintenance across Ghana:
+  'What is the current NEET rate and which regions are most affected?':
+    `**NEET Analysis — Not in Education, Employment, or Training:**
 
-**CRITICAL (Immediate Action Required):**
-\u2022 **Baba Yara Sports Stadium** (Ashanti) \u2014 Structural damage to east stand, waterlogged pitch, broken floodlights. CAF banned for international matches. Est. repair: **GH\u20B512,500,000**
-\u2022 **Tamale Sports Stadium** (Northern) \u2014 Athletics track surface deterioration, crumbling perimeter wall. Est. repair: **GH\u20B53,200,000**
-\u2022 **Sunyani Coronation Park** (Bono) \u2014 Condemned spectator stands, drainage failure. Est. repair: **GH\u20B52,100,000**
+**National NEET Rate: 25.8%** (approximately **1.34 million youth** aged 15-35)
+This represents a **-2.3 percentage point decline** from Q3 2025, indicating early programme impact.
 
-**HIGH PRIORITY (Within 90 Days):**
-\u2022 **Cape Coast Stadium** (Central) \u2014 Seating damage, drainage issues. Est. repair: **GH\u20B54,800,000**
-\u2022 **Essipong Stadium** (Western) \u2014 Pitch degradation, broken changing rooms. Est. repair: **GH\u20B52,900,000**
-\u2022 **Wa Sports Stadium** (Upper West) \u2014 No functional floodlights, fencing collapsed. Est. repair: **GH\u20B51,800,000**
+**MOST AFFECTED REGIONS (NEET Rate > 30%):**
+\u2022 **Northern Region** \u2014 38.2% NEET rate (142,300 youth)
+\u2022 **Upper East** \u2014 36.5% NEET rate (78,400 youth)
+\u2022 **Savannah** \u2014 35.8% NEET rate (52,100 youth)
+\u2022 **North East** \u2014 34.1% NEET rate (38,900 youth)
+\u2022 **Upper West** \u2014 33.4% NEET rate (44,200 youth)
 
-Total estimated repair cost for all 18 critical facilities: **GH\u20B545.2M**
+**BEST PERFORMING REGIONS:**
+\u2022 **Greater Accra** \u2014 16.2% (benefiting from urban job market density)
+\u2022 **Ashanti** \u2014 19.8% (strong TVET ecosystem around Kumasi)
 
-The AI predictive maintenance model forecasts that **7 additional facilities** will reach critical status within the next 6 months if preventive action is not taken. Priority recommendation: Begin Baba Yara Stadium renovation before the **2026 CAF deadline**.
+**Gender Breakdown:** Female NEET rate (31.4%) is significantly higher than male (20.8%), with the gap widest in northern regions.
 
-_Data source: YouthPulse Infrastructure Intelligence, Feb 2026_`,
+**KEY INSIGHT:** The 5 northern savannah regions collectively account for **42% of all NEET youth** despite having only **18% of the total youth population**. Targeted interventions in these regions could reduce the national rate by up to 8 percentage points.
 
-  'Show athletes with international potential outside football':
-    `I identified **47 athletes** across non-football disciplines who are performing at or above the 95th percentile nationally, indicating international potential:
+**Recommendation:** Scale the NEIP entrepreneurship support and mobile TVET units in Northern, Upper East, and Savannah regions where the gap is most critical.
 
-**ELITE TIER (Top 1% \u2014 International Medal Potential):**
-\u2022 **Abena Kyeremaa**, 19, Athletics \u2014 100m: 11.42s (ranked #3 nationally, African Junior level)
-\u2022 **Isaac Dogboe Jr.**, 17, Boxing \u2014 Bantamweight, 14-0 amateur record, West African U-18 Champion
-\u2022 **Emmanuel Tettey**, 21, Weightlifting \u2014 73kg class, Clean & Jerk: 152kg (Commonwealth Games qualifying)
-\u2022 **Priscilla Amoako**, 20, Long Jump \u2014 6.38m (Olympic B-standard proximity)
+_Data source: YouthPulse NEET Intelligence, Feb 2026_`,
 
-**EXCEPTIONAL TIER (Top 5% \u2014 Continental Potential):**
-\u2022 Athletics: 12 athletes (sprints: 5, jumps: 4, throws: 3)
-\u2022 Boxing: 8 athletes across 5 weight classes
-\u2022 Swimming: 4 athletes (freestyle & butterfly)
-\u2022 Weightlifting: 6 athletes
-\u2022 Judo: 3 athletes
-\u2022 Table Tennis: 5 athletes
+  'How effective are our youth empowerment programmes?':
+    `**Youth Empowerment Programme Effectiveness Dashboard:**
 
-**KEY INSIGHT:** These 47 athletes are spread across **9 regions**, but **zero** have received national team funding this fiscal year. Combined estimated support needed: **GH\u20B52.1M/year** \u2014 a fraction of a single Black Stars friendly match budget.
+**8 active programmes** currently being tracked across all 16 regions, serving a total of **48,750 youth**.
 
-Sport-fit analysis suggests **23 football academy players** may actually have higher potential in athletics or boxing based on their physical profiles.
+**TOP PERFORMING PROGRAMMES (by transition-to-employment rate):**
+\u2022 **1 Million Coders Initiative** \u2014 67.3% transition rate, avg. income uplift +185%
+\u2022 **YEA Artisan Modules** \u2014 58.9% transition rate, 12,400 enrolled
+\u2022 **Adwumawura Project** \u2014 52.8% transition rate at 12 months
+\u2022 **NEIP Entrepreneurship** \u2014 48.2% launched viable businesses
 
-_Data source: YouthPulse Talent Discovery, Feb 2026_`,
+**UNDERPERFORMING PROGRAMMES (need review):**
+\u2022 **NABCO** \u2014 23.4% transition rate (most participants return to unemployment after contract)
+\u2022 **Generic Skills Training** \u2014 31.2% transition rate (curriculum-job mismatch)
+
+**Overall Impact Metrics:**
+\u2022 Total youth transitioned to employment/self-employment: **18,420**
+\u2022 Average monthly income before programmes: GH\u20B5380
+\u2022 Average monthly income after: GH\u20B5920 (+142%)
+\u2022 Combined economic value generated: GH\u20B5203M annually
+
+**Digital Skills Progress:** 124,500 of 500,000 target (24.9%) enrolled in digital literacy programmes. On track for 2028 target.
+
+_Data source: YouthPulse Programme Analytics, Feb 2026_`,
 
   "What's the ROI of the Adwumawura programme?":
     `**Adwumawura Project \u2014 Return on Investment Analysis:**
@@ -185,60 +193,67 @@ _Data source: YouthPulse Talent Discovery, Feb 2026_`,
 
 _Data source: YouthPulse Programme Analytics, Jan 2026_`,
 
-  'Compare sports participation across all 16 regions':
-    `**Sports Participation Summary \u2014 All 16 Regions (2025-2026):**
+  'How many youth are at risk of emigrating and from which regions?':
+    `**Youth Migration Risk Analysis \u2014 February 2026:**
 
-**Total registered participants: 284,509**
+**National finding: 72% of Ghanaian youth (aged 15-35) are considering emigration** according to YouthPulse survey data cross-referenced with passport application trends and NEET status.
 
-**TOP 5 REGIONS (by participation rate per 1,000 youth):**
-1. Greater Accra \u2014 58,230 participants (42.1 per 1,000)
-2. Ashanti \u2014 49,812 participants (38.7 per 1,000)
-3. Central \u2014 22,340 participants (35.2 per 1,000)
-4. Western \u2014 19,870 participants (31.8 per 1,000)
-5. Volta \u2014 17,920 participants (29.4 per 1,000)
+**Total youth at HIGH migration risk: ~389,000**
+These are youth who are NEET + have actively taken steps toward emigration (passport applications, visa inquiries, or engagement with migration agents).
 
-**BOTTOM 5 REGIONS (urgent attention needed):**
-12. Savannah \u2014 5,120 participants (11.3 per 1,000)
-13. North East \u2014 4,380 participants (10.8 per 1,000)
-14. Oti \u2014 4,210 participants (10.2 per 1,000)
-15. Ahafo \u2014 3,890 participants (9.7 per 1,000)
-16. Western North \u2014 3,440 participants (8.9 per 1,000)
+**HIGHEST RISK REGIONS:**
+1. **Greater Accra** \u2014 78,200 high-risk youth (highest absolute, driven by awareness of opportunities abroad)
+2. **Ashanti** \u2014 62,400 high-risk youth (strong diaspora networks in UK/US)
+3. **Northern** \u2014 48,100 high-risk youth (desperation-driven, highest NEET overlap)
+4. **Volta** \u2014 34,800 high-risk youth (proximity to Togo corridor)
+5. **Upper East** \u2014 31,200 high-risk youth (highest rate per capita at 41%)
 
-**Gender Split:** 68% male, 32% female (national target: 45% female by 2028)
+**Top Stated Reasons for Wanting to Leave:**
+\u2022 Lack of job opportunities: 64%
+\u2022 Low wages / cost of living: 52%
+\u2022 Better education abroad: 38%
+\u2022 Family/peer pressure: 27%
+\u2022 Political disillusionment: 19%
 
-**Sport Diversity Index:** Football dominates with 61% of total participation. Athletics (12%), Basketball (7%), Volleyball (5%), and Boxing (4%) follow. 11 other sports share the remaining 11%.
+**KEY INSIGHT:** Youth who have been enrolled in YouthPulse empowerment programmes show a **43% lower emigration intent** than non-enrolled peers with similar demographics. This suggests that targeted skills training and job matching can significantly reduce brain drain.
 
-**KEY INSIGHT:** The 5 northern savannah regions have 3-4x lower participation rates than southern coastal regions, correlating directly with facility availability. Only **12 functional sports facilities** serve these 5 regions combined, versus **87** in Greater Accra alone.
+**Recommendation:** Launch "Stay & Build Ghana" campaign integrated with NEIP entrepreneurship grants in the top 5 at-risk regions. Estimated cost: GH\u20B58.5M. Potential retention: 45,000 skilled youth.
 
-_Data source: YouthPulse Participation Analytics, Feb 2026_`,
+_Data source: YouthPulse Migration Risk Analytics, Feb 2026_`,
 
-  'How much Sports Fund has been disbursed?':
-    `**Ghana Sports Fund \u2014 Fiscal Year 2025/2026 Status:**
+  'What is the digital skills gap across regions?':
+    `**Digital Skills Gap Analysis \u2014 All 16 Regions:**
 
-**Total Approved Budget: GH\u20B5120,000,000**
-**Disbursed to Date: GH\u20B578,400,000 (65.3%)**
-**Committed (Approved, Pending Disbursement): GH\u20B518,200,000**
-**Uncommitted Balance: GH\u20B523,400,000**
+**National Digital Literacy Rate (youth 15-35): 34.2%**
+**Target by 2028: 65%** (per 1 Million Coders Initiative + Ghana Digital Agenda)
 
-**Disbursement by Category:**
-\u2022 Infrastructure & Facility Renovation: GH\u20B534,200,000 (43.6%)
-\u2022 Athlete Welfare & Allowances: GH\u20B518,900,000 (24.1%)
-\u2022 Competition & Travel: GH\u20B512,600,000 (16.1%)
-\u2022 Grassroots Development: GH\u20B58,400,000 (10.7%)
-\u2022 Administration: GH\u20B54,300,000 (5.5%)
+**Progress: 124,500 enrolled / 500,000 target (24.9%)**
 
-**Disbursement by Sport:**
-\u2022 Football: GH\u20B529,800,000 (38.0%) \u2014 \u26a0 Exceeds 25% equity cap
-\u2022 Athletics: GH\u20B59,200,000 (11.7%)
-\u2022 Boxing: GH\u20B56,100,000 (7.8%)
-\u2022 Parasports: GH\u20B55,900,000 (7.5%) \u2014 Below 10% inclusion mandate
-\u2022 Other sports: GH\u20B527,400,000 (35.0%)
+**MOST DIGITALLY UNDERSERVED REGIONS:**
+1. **Savannah** \u2014 8.3% digital literacy rate (2,100 youth trained)
+2. **North East** \u2014 9.1% (1,800 youth trained)
+3. **Upper West** \u2014 11.4% (3,200 youth trained)
+4. **Upper East** \u2014 12.8% (4,100 youth trained)
+5. **Oti** \u2014 14.2% (2,900 youth trained)
 
-**Pending Athlete Payments: 342 athletes** awaiting allowance disbursement (avg. 23 days overdue).
+**MOST DIGITALLY ADVANCED REGIONS:**
+1. **Greater Accra** \u2014 58.4% (42,800 trained, strong private sector ecosystem)
+2. **Ashanti** \u2014 41.2% (28,300 trained, Kumasi tech hub growth)
 
-**AI Optimization Recommendation:** Redirect GH\u20B54.2M from uncommitted balance to parasports (to meet 10% mandate) and reduce football allocation in Q3 to meet the 25% equity cap.
+**Skills Breakdown (of 124,500 enrolled):**
+\u2022 Basic computer literacy: 48,200 (38.7%)
+\u2022 Mobile app development: 18,900 (15.2%)
+\u2022 Web development: 16,400 (13.2%)
+\u2022 Data entry & management: 14,800 (11.9%)
+\u2022 Digital marketing: 12,100 (9.7%)
+\u2022 Graphic design: 8,400 (6.7%)
+\u2022 AI/ML foundations: 5,700 (4.6%)
 
-_Data source: YouthPulse Fund Tracker, Feb 2026_`,
+**Employment Outcome:** 67.3% of 1 Million Coders graduates found digital employment within 6 months, earning an average of **GH\u20B52,400/month** vs. national youth average of **GH\u20B5920/month**.
+
+**Recommendation:** Deploy mobile digital labs (container-based computer labs with satellite internet) to the 5 most underserved regions. Each unit can train 200 youth/month at GH\u20B51.2M setup cost.
+
+_Data source: YouthPulse Digital Skills Intelligence, Feb 2026_`,
 
   'Which regions have the worst skills gaps?':
     `**Regional Skills Gap Analysis \u2014 Top Supply-Demand Mismatches:**
@@ -317,7 +332,7 @@ _Nsɛm fi: YouthPulse Employment Intelligence, Q1 2026_`,
 // Fallback response for unrecognised queries
 // ────────────────────────────────────────────────────────────
 
-const FALLBACK_RESPONSE = `Thank you for your question. I've searched across the YouthPulse database covering **847,293 registered youth**, **342 monitored facilities**, and **15,209 tracked athletes** across Ghana's 16 regions.
+const FALLBACK_RESPONSE = `Thank you for your question. I've searched across the YouthPulse database covering **847,293 registered youth**, **48,750 programme enrolments**, and **1.34M NEET youth** tracked across Ghana's 16 regions.
 
 I'm currently processing your query against our datasets. In the full production system, I would:
 
@@ -552,9 +567,9 @@ function ChatMessage({ message }: { message: ChatMessage }) {
 // ────────────────────────────────────────────────────────────
 
 const FOLLOW_UP_SUGGESTIONS = [
-  'Which facilities need urgent maintenance?',
-  'Show athletes with international potential outside football',
-  'How much Sports Fund has been disbursed?',
+  'What is the current NEET rate and which regions are most affected?',
+  'How effective are our youth empowerment programmes?',
+  'What is the digital skills gap across regions?',
   'Which regions have the worst skills gaps?',
 ];
 
@@ -650,7 +665,7 @@ export default function AskAI() {
                 Ask AI
               </h1>
               <p className="text-xs text-text-muted">
-                Ask questions about Ghana's youth &amp; sports data in
+                Ask questions about Ghana's youth development data in
                 English or Twi
               </p>
             </div>
@@ -706,7 +721,7 @@ export default function AskAI() {
                     className="text-sm text-text-muted max-w-md mx-auto"
                   >
                     I can analyze data across 847,293 registered youth,
-                    342 sports facilities, and 15,209 athletes across
+                    48,750 programme enrolments, and NEET trends across
                     all 16 regions of Ghana.
                   </motion.p>
                 </div>
@@ -863,8 +878,8 @@ export default function AskAI() {
               onKeyDown={handleKeyDown}
               placeholder={
                 language === 'EN'
-                  ? "Ask anything about Ghana's youth & sports data..."
-                  : 'Bisa biribi fa Ghana mmerantewa ne agor\u0254...'
+                  ? "Ask anything about Ghana's youth development data..."
+                  : 'Bisa biribi fa Ghana mmerantewa ho nsɛm...'
               }
               disabled={isTyping}
               className="

@@ -2,8 +2,8 @@ import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import NationalOverview from './pages/NationalOverview'
 import EmploymentDashboard from './pages/EmploymentDashboard'
-import InfrastructureDashboard from './pages/InfrastructureDashboard'
-import TalentDashboard from './pages/TalentDashboard'
+import EmpowermentDashboard from './pages/EmpowermentDashboard'
+import NEETDashboard from './pages/NEETDashboard'
 import AskAI from './pages/AskAI'
 
 export default function App() {
@@ -12,8 +12,8 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<NationalOverview />} />
         <Route path="/employment" element={<EmploymentDashboard />} />
-        <Route path="/infrastructure" element={<InfrastructureDashboard />} />
-        <Route path="/talent" element={<TalentDashboard />} />
+        <Route path="/empowerment" element={<EmpowermentDashboard />} />
+        <Route path="/neet" element={<NEETDashboard />} />
         <Route path="/ask-ai" element={<AskAI />} />
       </Route>
     </Routes>

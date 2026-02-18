@@ -4,8 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import {
   LayoutDashboard,
   Briefcase,
-  Building2,
-  Star,
+  Rocket,
+  Users,
   MessageSquare,
   Bell,
   Menu,
@@ -53,14 +53,14 @@ const NAV_SECTIONS: NavSection[] = [
         icon: <Briefcase size={20} />,
       },
       {
-        label: 'Sports Infrastructure',
-        path: '/infrastructure',
-        icon: <Building2 size={20} />,
+        label: 'Youth Empowerment',
+        path: '/empowerment',
+        icon: <Rocket size={20} />,
       },
       {
-        label: 'Talent Discovery',
-        path: '/talent',
-        icon: <Star size={20} />,
+        label: 'NEET & Community Impact',
+        path: '/neet',
+        icon: <Users size={20} />,
       },
     ],
   },
@@ -83,8 +83,8 @@ const NAV_SECTIONS: NavSection[] = [
 const ROUTE_TITLES: Record<string, string> = {
   '/': 'National Overview',
   '/employment': 'Employment Intelligence',
-  '/infrastructure': 'Sports Infrastructure',
-  '/talent': 'Talent Discovery',
+  '/empowerment': 'Youth Empowerment',
+  '/neet': 'NEET & Community Impact',
   '/ask-ai': 'Ask AI',
 };
 
